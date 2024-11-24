@@ -129,3 +129,7 @@ dmypy.json
 .pyre/
 
 save/
+.vscode
+body_models/
+glove/
+*.zip
