@@ -3,6 +3,11 @@
 Generate a large batch of image samples from a model and save them as a large
 numpy array. This can be used to produce samples for FID evaluation.
 """
+
+import sys, os
+script_dir = os.path.dirname(__file__)
+sys.path.append(os.path.join(script_dir, ".."))
+
 from utils.fixseed import fixseed
 import os
 import numpy as np

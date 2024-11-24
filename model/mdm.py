@@ -99,7 +99,7 @@ class MDM(nn.Module):
         return [p for name, p in self.named_parameters() if not name.startswith('clip_model.')]
 
     def load_and_freeze_clip(self, clip_version):
-        clip_model, clip_preprocess = clip.load(clip_version, device='cpu',
+        clip_model, clip_preprocess = clip.load("/group-volume/outfill/checkpoints/ViT-B-32.pt", device='cpu',
                                                 jit=False)  # Must set jit=False for training
         clip.model.convert_weights(
             clip_model)  # Actually this line is unnecessary since clip by default already on float16
