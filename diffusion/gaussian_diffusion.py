@@ -308,6 +308,8 @@ class GaussianDiffusion:
             inpainting_mask, inpainted_motion = model_kwargs['y']['inpainting_mask'], model_kwargs['y']['inpainted_motion']
             assert self.model_mean_type == ModelMeanType.START_X, 'This feature supports only X_start pred for mow!'
             assert model_output.shape == inpainting_mask.shape == inpainted_motion.shape
+            inpainting_mask = inpainting_mask * (t != 0).view(B, 1, 1, 1) # not applying inpainting 
+            # see here https://github.com/korrawe/guided-motion-diffusion/blob/main/diffusion/gaussian_diffusion.py#L763
             model_output = (model_output * ~inpainting_mask) + (inpainted_motion * inpainting_mask)
             # print('model_output', model_output.shape, model_output)
             # print('inpainting_mask', inpainting_mask.shape, inpainting_mask[0,0,0,:])
