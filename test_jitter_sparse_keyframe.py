@@ -56,10 +56,10 @@ if __name__ == "__main__":
     fixseed(10)
 
     data_suite_folder = "test_suite"
-    with open(os.path.join(data_suite_folder, 'model.bin'), 'rb') as file:
+    with open(os.path.join(data_suite_folder, 'model_1000.bin'), 'rb') as file:
         model = pickle.load(file)
 
-    with open(os.path.join(data_suite_folder, 'args.bin'), 'rb') as file:
+    with open(os.path.join(data_suite_folder, 'args_1000.bin'), 'rb') as file:
         args = pickle.load(file)
     diffusion = create_gaussian_diffusion(args)
 
@@ -75,7 +75,7 @@ if __name__ == "__main__":
     input_motions = model_kwargs_default['y']['inpainted_motion']
     lengths = model_kwargs_default['y']['lengths'].cpu().numpy()
     model_kwargs_list = []
-    padding_step_list = range(0, 10)
+    padding_step_list = range(0, 2)
     sparse_keyframes_list = []
     for padding_step in padding_step_list:
         model_kargs = {}
@@ -113,7 +113,6 @@ if __name__ == "__main__":
             dump_steps=None,
             noise=None,
             const_noise=False,
-            use_repaint=False
         )
         for b, length in zip(range(batch_size), model_kwargs_default['y']['lengths'].cpu().numpy()):
             sample[b][...,length:] = 0
